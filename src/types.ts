@@ -3,14 +3,7 @@ export interface Transaction {
   date: string; // ISO date string
   amount: number;
   merchant: string;
-  category:
-    | "shopping"
-    | "travel"
-    | "gambling"
-    | "bills"
-    | "personal"
-    | "transport"
-    | "home";
+  category: 'shopping' | 'travel' | 'gambling' | 'bills' | 'personal' | 'transport' | 'home';
 }
 
 export interface PaginationNext {
@@ -27,13 +20,13 @@ export interface TransactionResponse {
 
 // Alternative category type if you want to be more flexible
 export type TransactionCategory =
-  | "shopping"
-  | "travel"
-  | "gambling"
-  | "bills"
-  | "personal"
-  | "transport"
-  | "home"
+  | 'shopping'
+  | 'travel'
+  | 'gambling'
+  | 'bills'
+  | 'personal'
+  | 'transport'
+  | 'home'
   | string; // Allow for other categories not in the sample
 
 // You can use this if you want more flexible categories

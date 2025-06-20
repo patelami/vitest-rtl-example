@@ -1,10 +1,9 @@
-import { useState } from "react";
-import "./App.css";
-import { TransactionResponse, Transaction } from "./types";
+import { useState } from 'react';
+import './App.css';
+import type { TransactionResponse, Transaction } from './types';
 
 function App() {
-  const [transactionData, setTransactionData] =
-    useState<TransactionResponse | null>(null);
+  const [transactionData, setTransactionData] = useState<TransactionResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -13,17 +12,15 @@ function App() {
     setError(null);
 
     try {
-      const apiUrl =
-        import.meta.env.VITE_API_BASE_URL ||
-        "https://tip-transactions.vercel.app/api";
+      const apiUrl = import.meta.env.VITE_API_BASE_URL || 'https://tip-transactions.vercel.app/api';
       const response = await fetch(`${apiUrl}/transactions?page=${page}`);
       if (!response.ok) {
-        throw new Error("Failed to fetch transaction data");
+        throw new Error('Failed to fetch transaction data');
       }
       const data: TransactionResponse = await response.json();
       setTransactionData(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(false);
     }
@@ -31,33 +28,33 @@ function App() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+    return date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
     });
   };
 
   const formatAmount = (amount: number) => {
-    return new Intl.NumberFormat("en-GB", {
-      style: "currency",
-      currency: "GBP",
+    return new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: 'GBP',
     }).format(amount);
   };
 
   const getCategoryColor = (category: string) => {
     const colors = {
-      shopping: "#e74c3c",
-      travel: "#3498db",
-      gambling: "#9b59b6",
-      bills: "#f39c12",
-      personal: "#2ecc71",
-      transport: "#34495e",
-      home: "#e67e22",
+      shopping: '#e74c3c',
+      travel: '#3498db',
+      gambling: '#9b59b6',
+      bills: '#f39c12',
+      personal: '#2ecc71',
+      transport: '#34495e',
+      home: '#e67e22',
     };
-    return colors[category as keyof typeof colors] || "#95a5a6";
+    return colors[category as keyof typeof colors] || '#95a5a6';
   };
 
   const loadNextPage = () => {
@@ -79,9 +76,9 @@ function App() {
             onClick={() => fetchTransactions(1)}
             disabled={loading}
             className="fetch-button"
-            aria-describedby={transactionData ? "transaction-list" : undefined}
+            aria-describedby={transactionData ? 'transaction-list' : undefined}
           >
-            {loading ? "Loading..." : "Load Transactions"}
+            {loading ? 'Loading...' : 'Load Transactions'}
           </button>
 
           {transactionData && transactionData.next && (
@@ -104,13 +101,9 @@ function App() {
 
         {transactionData && (
           <section className="transaction-section" aria-live="polite">
-            <div
-              className="pagination-info"
-              aria-label="Pagination information"
-            >
+            <div className="pagination-info" aria-label="Pagination information">
               <p>
-                Page {transactionData.currentPage} of{" "}
-                {transactionData.totalPages} (
+                Page {transactionData.currentPage} of {transactionData.totalPages} (
                 {transactionData.transactions.length} transactions)
               </p>
             </div>
@@ -131,10 +124,7 @@ function App() {
                   aria-describedby={`transaction-${transaction.id}-details`}
                 >
                   <div className="transaction-header">
-                    <h3
-                      id={`transaction-${transaction.id}-merchant`}
-                      className="merchant-name"
-                    >
+                    <h3 id={`transaction-${transaction.id}-merchant`} className="merchant-name">
                       {transaction.merchant}
                     </h3>
                     <span
@@ -145,16 +135,11 @@ function App() {
                     </span>
                   </div>
 
-                  <div
-                    id={`transaction-${transaction.id}-details`}
-                    className="transaction-details"
-                  >
+                  <div id={`transaction-${transaction.id}-details`} className="transaction-details">
                     <time
                       dateTime={transaction.date}
                       className="transaction-date"
-                      aria-label={`Transaction date: ${formatDate(
-                        transaction.date
-                      )}`}
+                      aria-label={`Transaction date: ${formatDate(transaction.date)}`}
                     >
                       {formatDate(transaction.date)}
                     </time>
