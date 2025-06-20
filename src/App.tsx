@@ -1,33 +1,15 @@
-import { useState } from 'react';
 import './App.css';
-import type { TransactionResponse, Transaction } from './types';
+import type { Transaction } from './types';
+import { useTransactions } from './hooks/useTransactions';
 
 function App() {
-  const [transactionData, setTransactionData] = useState<TransactionResponse | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchTransactions = async (page: number = 1) => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const apiUrl = import.meta.env.VITE_API_BASE_URL;
-      if (!apiUrl) {
-        throw new Error('API URL not configured. Please set VITE_API_BASE_URL in your .env file');
-      }
-      const response = await fetch(`${apiUrl}/transactions?page=${page}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch transaction data');
-      }
-      const data: TransactionResponse = await response.json();
-      setTransactionData(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    data: transactionData,
+    loading,
+    error,
+    fetchTransactions,
+    loadNextPage,
+  } = useTransactions();
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -58,12 +40,6 @@ function App() {
       home: '#e67e22',
     };
     return colors[category as keyof typeof colors] || '#95a5a6';
-  };
-
-  const loadNextPage = () => {
-    if (transactionData?.next) {
-      fetchTransactions(transactionData.next.page);
-    }
   };
 
   return (
