@@ -12,7 +12,10 @@ function App() {
     setError(null);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_BASE_URL || 'https://tip-transactions.vercel.app/api';
+      const apiUrl = import.meta.env.VITE_API_BASE_URL;
+      if (!apiUrl) {
+        throw new Error('API URL not configured. Please set VITE_API_BASE_URL in your .env file');
+      }
       const response = await fetch(`${apiUrl}/transactions?page=${page}`);
       if (!response.ok) {
         throw new Error('Failed to fetch transaction data');
