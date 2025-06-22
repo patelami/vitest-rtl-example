@@ -1,6 +1,7 @@
 import './App.css';
 import type { Transaction } from './types';
 import { useTransactions } from './hooks/useTransactions';
+import { formatDate, formatAmount, getCategoryColor } from './utils/utils';
 
 function App() {
   const {
@@ -11,36 +12,36 @@ function App() {
     loadNextPage,
   } = useTransactions();
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
+  // const formatDate = (dateString: string) => {
+  //   const date = new Date(dateString);
+  //   return date.toLocaleDateString('en-GB', {
+  //     day: 'numeric',
+  //     month: 'short',
+  //     year: 'numeric',
+  //     hour: '2-digit',
+  //     minute: '2-digit',
+  //   });
+  // };
 
-  const formatAmount = (amount: number) => {
-    return new Intl.NumberFormat('en-GB', {
-      style: 'currency',
-      currency: 'GBP',
-    }).format(amount);
-  };
+  // const formatAmount = (amount: number) => {
+  //   return new Intl.NumberFormat('en-GB', {
+  //     style: 'currency',
+  //     currency: 'GBP',
+  //   }).format(amount);
+  // };
 
-  const getCategoryColor = (category: string) => {
-    const colors = {
-      shopping: '#e74c3c',
-      travel: '#3498db',
-      gambling: '#9b59b6',
-      bills: '#f39c12',
-      personal: '#2ecc71',
-      transport: '#34495e',
-      home: '#e67e22',
-    };
-    return colors[category as keyof typeof colors] || '#95a5a6';
-  };
+  // const getCategoryColor = (category: string) => {
+  //   const colors = {
+  //     shopping: '#e74c3c',
+  //     travel: '#3498db',
+  //     gambling: '#9b59b6',
+  //     bills: '#f39c12',
+  //     personal: '#2ecc71',
+  //     transport: '#34495e',
+  //     home: '#e67e22',
+  //   };
+  //   return colors[category as keyof typeof colors] || '#95a5a6';
+  // };
 
   return (
     <div className="app">
