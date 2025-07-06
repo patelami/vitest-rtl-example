@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 import App from './App';
 
-describe('App', () => {
+describe('Error state works', () => {
   afterEach(() => {
     vi.restoreAllMocks();
   });
@@ -16,7 +16,6 @@ describe('App', () => {
 
   test("displays an error message with 'Failed to fetch transaction data' when the network request fails", async () => {
     vi.stubEnv('VITE_API_BASE_URL', 'http://localhost:3000/api');
-
     vi.spyOn(window, 'fetch').mockResolvedValue({
       ok: false,
     } as Response);

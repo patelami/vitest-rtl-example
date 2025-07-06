@@ -19,10 +19,28 @@ It's entirely open ended as to how you approach it but as a guide the following 
 ## Installation
 
 ```
-cp .env.sample .env
+cp .env.example .env
 npm i
 ```
 
 ## Get it running
 
 See package.json for tests and running the app
+
+## Testing
+
+### Running Tests
+
+To run all tests:
+
+```bash
+npm run test
+```
+
+### Test Coverage
+
+To check test coverage:
+
+```bash
+npm run coverage
+```
